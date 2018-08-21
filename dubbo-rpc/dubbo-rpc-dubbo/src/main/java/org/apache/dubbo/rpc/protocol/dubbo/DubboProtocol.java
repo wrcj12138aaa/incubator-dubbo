@@ -263,7 +263,7 @@ public class DubboProtocol extends AbstractProtocol {
                 stubServiceMethodsMap.put(url.getServiceKey(), stubServiceMethods);
             }
         }
-
+        // 打开服务端连接
         openServer(url);
         optimizeSerialization(url);
         return exporter;
@@ -279,7 +279,7 @@ public class DubboProtocol extends AbstractProtocol {
             if (server == null) {
                 synchronized (this) {
                     server = serverMap.get(key);
-                    if (server == null) {
+                    if (server == null) { // 创建server
                         serverMap.put(key, createServer(url));
                     }
                 }
@@ -293,7 +293,7 @@ public class DubboProtocol extends AbstractProtocol {
     private ExchangeServer createServer(URL url) {
         // send readonly event when server closes, it's enabled by default
         url = url.addParameterIfAbsent(Constants.CHANNEL_READONLYEVENT_SENT_KEY, Boolean.TRUE.toString());
-        // enable heartbeat by default
+        // enable heartbeat by default 心跳heartbeat, netty
         url = url.addParameterIfAbsent(Constants.HEARTBEAT_KEY, String.valueOf(Constants.DEFAULT_HEARTBEAT));
         String str = url.getParameter(Constants.SERVER_KEY, Constants.DEFAULT_REMOTING_SERVER);
 

@@ -91,7 +91,7 @@ public abstract class AbstractRegistry implements Registry {
         }
         this.file = file;
         loadProperties();
-        notify(url.getBackupUrls());
+        notify(url.getBackupUrls()); //通知注册信息的变化
     }
 
     protected static List<URL> filterEmpty(URL url, List<URL> urls) {
